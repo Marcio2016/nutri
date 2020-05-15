@@ -1,13 +1,16 @@
 <ion-content padding>
-  <h2 style="text-align: center;">Login</h2>
+  <img src="../../assets/imgs/logo.jpg" alt="" class="logo"/>
+
   <ion-item>
-    <ion-label stacked>Usuario:</ion-label>
+    <ion-label ><ion-icon ios="ios-mail" md="md-mail"></ion-icon> E-mail: </ion-label>
     <ion-input type="text" #usuario></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label stacked>Senha:</ion-label>
+    <ion-label ><ion-icon ios="ios-lock" md="md-lock"></ion-icon> Senha: </ion-label>
     <ion-input type="password" #senha></ion-input>
   </ion-item>
-  <button ion-button block (click)="entrar()">Entrar</button>
-  <button ion-button block (click)="cadastrar()">Fazer Cadastro</button>
+  <button ion-button block (click)="entrar()" class="botao">Entrar</button>
+  
+  <p class="texto"><a (click)="cadastrar()">Criar uma conta</a></p>
+  <p class="texto"><a (click)="recuperar()">Esqueci minha senha</a></p>
 </ion-content>

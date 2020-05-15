@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>cadastrar</ion-title>
   </ion-navbar>
 </ion-header>
@@ -8,12 +8,12 @@
 
   <!--<h2 style="text-align: center;">Login</h2>-->
   <ion-item>
-    <ion-label stacked>Email:</ion-label>
+    <ion-label ><ion-icon ios="ios-mail" md="md-mail"></ion-icon> E-mail:</ion-label>
     <ion-input type="text" #usuario></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label stacked>Senha:</ion-label>
+    <ion-label ><ion-icon ios="ios-lock" md="md-lock"></ion-icon> Senha:</ion-label>
     <ion-input type="password" #senha></ion-input>
   </ion-item>
-  <button ion-button block (click)="cadastrar()">Cadastrar</button>
+  <button class="botao" ion-button block (click)="cadastrar()">Cadastrar</button>
 </ion-content>
