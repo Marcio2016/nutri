@@ -1,14 +1,20 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Login
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v3">docs</a> will be your guide.
-  </p>
+  <h2 style="text-align: center;">Login</h2>
+  <ion-item>
+    <ion-label stacked>Usuario:</ion-label>
+    <ion-input type="text" #usuario></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Senha:</ion-label>
+    <ion-input type="password" #senha></ion-input>
+  </ion-item>
+  <button ion-button block (click)="entrar()">Entrar</button>
 </ion-content>
