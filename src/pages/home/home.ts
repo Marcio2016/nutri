@@ -1,31 +1,54 @@
+
 import { Component,ViewChild } from '@angular/core';
 import { NavController,ToastController } from 'ionic-angular';
-import { viewClassName } from '@angular/compiler';
+
+import { Users } from './users';
+
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { DicasPage } from './../dicas/dicas';
+import { CadastrarPage } from '../cadastrar/cadastrar';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  users: Users = new Users();
   @ViewChild('usuario') email;
   @ViewChild('senha') password;
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController,
+              public toastCtrl: ToastController,
+              public fire: AngularFireAuth) {
 
   }
 
-  entrar(){
+  entrar() {
     let message = this.toastCtrl.create({duration: 3000, position: 'bottom'});
-    if(this.email.value === "admin@admin.com.br" && this.password.value === 'admin'){
-      this.navCtrl.push(DicasPage);
-      message.setMessage('Seja Bem vindo!');
-      message.present();
-    }else{
-      message.setMessage('Usuário ou senha inválida!');
-      message.present();
-    }
+   
+      this.fire.auth.signInWithEmailAndPassword(this.email.value,this.password.value )
+        .then(data => {
+          this.users.email = this.email.value;
+          this.users.senha = this.password.value;
+
+          this.navCtrl.setRoot(DicasPage);
+          
+        }).catch((error:any) =>{
+          if(error.code == 'auth/invalid-email') {
+            message.setMessage('Endereço de e-mail invalido!');
+          }else if (error.code == 'auth/user-disabled'){
+            message.setMessage('E-mail especificado destivado');
+          }else if (error.code == 'auth/user-not-found'){
+            message.setMessage('E-mail não encontrado!');
+          }else if (error.code == 'auth/wrong-password'){
+            message.setMessage('E-mail ou senha não cadastrado!');
+          }
+          message.present();
+      })   
+  }
+
+  cadastrar() {
+    this.navCtrl.push(CadastrarPage);
   }
 
 }
