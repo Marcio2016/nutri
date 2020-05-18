@@ -5,6 +5,7 @@ import { NavController,ToastController } from 'ionic-angular';
 import { Users } from './users';
 
 import { AngularFireAuth } from 'angularfire2/auth';
+import firebase from 'firebase';
 
 import { DicasPage } from './../dicas/dicas';
 import { CadastrarPage } from '../cadastrar/cadastrar';
@@ -32,7 +33,7 @@ export class HomePage {
           this.users.email = this.email.value;
           this.users.senha = this.password.value;
 
-          this.navCtrl.setRoot(DicasPage);
+          this.navCtrl.setRoot(DicasPage);          
           
         }).catch((error:any) =>{
           if(error.code == 'auth/invalid-email') {
@@ -54,6 +55,14 @@ export class HomePage {
 
   recuperar(){
     this.navCtrl.push(RecuperarPage);
+  }
+
+  entrarComFacebook() {
+    this.fire.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+    .then(res =>{
+      //console.log(res);
+      this.navCtrl.setRoot(DicasPage);
+    })
   }
 
 }

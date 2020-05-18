@@ -10,6 +10,9 @@
     <ion-input type="password" #senha></ion-input>
   </ion-item>
   <button ion-button block (click)="entrar()" class="botao">Entrar</button>
+  <button ion-button block (click)="entrarComFacebook()" class="botao"
+   icon-start><ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>
+    Entrar com Facebook</button>
   
   <p class="texto"><a (click)="cadastrar()">Criar uma conta</a></p>
   <p class="texto"><a (click)="recuperar()">Esqueci minha senha</a></p>
