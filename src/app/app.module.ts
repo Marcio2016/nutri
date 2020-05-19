@@ -8,11 +8,13 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { DicasPage } from '../pages/dicas/dicas';
 import { CadastrarPage } from '../pages/cadastrar/cadastrar';
+import { PerfilPage } from './../pages/perfil/perfil';
 import { RecuperarPage } from './../pages/recuperar/recuperar';
 
 //Imports do Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { NutriProvider } from '../providers/nutri/nutri';
 
 const firebaseAuth =  {
     apiKey: "AIzaSyCQTtW4yS7tfLg295OS0pM9XSezRcHP8N0",
@@ -31,7 +33,8 @@ const firebaseAuth =  {
     HomePage,
     DicasPage,
     CadastrarPage,
-    RecuperarPage
+    RecuperarPage,
+    PerfilPage
   ],
   imports: [
     BrowserModule,
@@ -46,12 +49,14 @@ const firebaseAuth =  {
     HomePage,
     DicasPage,
     CadastrarPage,
-    RecuperarPage
+    RecuperarPage,
+    PerfilPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    NutriProvider
   ]
 })
 export class AppModule {}

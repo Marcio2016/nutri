@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
-/**
- * Generated class for the PerfilPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AngularFireAuth } from 'angularfire2/auth';
+
 
 @IonicPage()
 @Component({
@@ -15,11 +11,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PerfilPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  email: string;
+  fotoPerfil: boolean = false;
+
+  facebook = {
+    nome: '',
+    fotoUrl: ''
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PerfilPage');
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public fire: AngularFireAuth, public toast: ToastController) {
+
+      this.email = fire.auth.currentUser.email;
+      this.facebook.nome = fire.auth.currentUser.displayName;
+      this.facebook.fotoUrl = fire.auth.currentUser.photoURL;
+
+      if(this.facebook.fotoUrl == null) {
+        this.fotoPerfil;
+      }else {
+        this.fotoPerfil = true;
+      }
+  }  
 
 }
