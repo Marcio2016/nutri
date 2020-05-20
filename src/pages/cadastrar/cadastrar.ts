@@ -1,9 +1,9 @@
+import { TabsPage } from './../tabs/tabs';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 
-import { DicasPage } from './../dicas/dicas';
 /**
  * Generated class for the CadastrarPage page.
  *
@@ -17,15 +17,34 @@ import { DicasPage } from './../dicas/dicas';
   templateUrl: 'cadastrar.html',
 })
 export class CadastrarPage {
-
+  tabBarElemente: any;
   @ViewChild('usuario') email;
   @ViewChild('senha') password;
   constructor(public navCtrl: NavController,
                public navParams: NavParams,
                public fire: AngularFireAuth,
                public toast: ToastController) {
+
+                this.tabBarElemente = document.querySelectorAll('.show-tabbar');         
   }
 
+  ionViewWillEnter(){
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if(tabs !== null){
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'none';
+      });
+    }
+  }
+
+  ionViewWillLeave(){
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if(tabs !== null){
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'none';
+      });
+    }
+  }
   
   cadastrar(){
     let msg = this.toast.create({duration: 2000, position: 'bottom'});
@@ -34,7 +53,7 @@ export class CadastrarPage {
     .then(data => {
         msg.setMessage('Parabéns acesso liberado!');
         msg.present();
-        this.navCtrl.setRoot(DicasPage);
+        this.navCtrl.setRoot(TabsPage);
 
     }).catch((error:any) => {
       if(error.code == 'auth/email-already-in-use'){

@@ -1,5 +1,5 @@
-import { URL_API } from './../../config';
-import { HttpClient } from '@angular/common/http';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
@@ -8,13 +8,18 @@ import { Observable } from 'rxjs/Observable';
 import * as Config from '../../config';
 
 
-
 @Injectable()
 export class NutriProvider {
 
-  constructor(public http: HttpClient) {
-    
+  constructor(public http: HttpClient) { }
+
+  // Http Options
+ httpOptions = {
+  headers: new HttpHeaders({
+  'Content-Type': 'application/json'
+  })
   }
+  
 
   getRecentePosts(page: number = 1) {
     return this.http.get(
@@ -29,14 +34,14 @@ export class NutriProvider {
   getPostCategoria(post) {
     let observableBatch = [];
 
-    post.categoria.forEach(categoria => {
+    post.categories.forEach(categoria => {
       observableBatch.push(this.getCategoria(categoria))
     });
     return Observable.forkJoin(observableBatch);
   }
 
   getCategoria(categoria){
-    return this.http.get(Config.URL_API + "categoria/" + categoria).map(res => res);
+    return this.http.get(Config.URL_API + "categories/" + categoria).map(res => res);
   }
 
 }

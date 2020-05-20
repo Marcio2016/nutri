@@ -5,8 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { TabsPage } from './../pages/tabs/tabs';
 import { HomePage } from './../pages/home/home';
-import { DicasPage } from './../pages/dicas/dicas';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,7 @@ export class MyApp {
 
       const autObserver = fire.authState.subscribe(users =>{
         if(users){
-          this.rootPage = DicasPage;
+          this.rootPage = TabsPage;
           autObserver.unsubscribe();
         }else {
           this.rootPage = HomePage;

@@ -1,4 +1,3 @@
-
 import { Component,ViewChild } from '@angular/core';
 import { NavController,ToastController } from 'ionic-angular';
 
@@ -7,22 +6,46 @@ import { Users } from './users';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 
-import { DicasPage } from './../dicas/dicas';
+
 import { CadastrarPage } from '../cadastrar/cadastrar';
 import { RecuperarPage } from './../recuperar/recuperar';
+import { TabsPage } from './../tabs/tabs';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  
   users: Users = new Users();
+  
+  tabBarElemente: any;
+
   @ViewChild('usuario') email;
   @ViewChild('senha') password;
   constructor(public navCtrl: NavController,
               public toastCtrl: ToastController,
               public fire: AngularFireAuth) {
 
+                this.tabBarElemente = document.querySelectorAll('.show-tabbar');
+  }
+
+  ngAfterViewInit(){
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if(tabs !== null){
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'none';
+      });
+    }
+  }
+
+  ionViewWillLeave(){
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if(tabs !== null){
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'none';
+      });
+    }
   }
 
   entrar() {
@@ -33,7 +56,7 @@ export class HomePage {
           this.users.email = this.email.value;
           this.users.senha = this.password.value;
 
-          this.navCtrl.setRoot(DicasPage);          
+          this.navCtrl.setRoot(TabsPage);          
           
         }).catch((error:any) =>{
           if(error.code == 'auth/invalid-email') {
@@ -61,7 +84,7 @@ export class HomePage {
     this.fire.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
     .then(res =>{
       //console.log(res);
-      this.navCtrl.setRoot(DicasPage);
+      this.navCtrl.setRoot(TabsPage);
     })
   }
 
